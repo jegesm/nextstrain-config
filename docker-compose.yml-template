@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  ##PREFIX##-nextstrain:
+    container_name: ##PREFIX##-nextstrain
+    image: nextstrain/base 
+#    image: ##PREFIX##-nextstrain 
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+    networks:
+      - ##PREFIX##-net
+    volumes:
+      - ##PREFIX##-##MODULE_NAME##-log:/var/log/nextstrain/
+      - vol-nextstrain-studies:/studies/
+    restart: unless-stopped
+    ports:
+      - 4000:4000
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    environment:
+      - LANG=en_US.UTF-8
+      - PREFIX=##PREFIX##
+      - DOMAIN=##OUTERHOST##
+    command: /bin/bash -c 'view --native --allow-remote-access --port 4000 /studies/auspice/'
+
+networks:
+  ##PREFIX##-net:
+    external: true
+
+volumes:
+  vol-nextstrain-studies:
+    external: true
+  ##PREFIX##-##MODULE_NAME##-log:
+    external: true
+   
