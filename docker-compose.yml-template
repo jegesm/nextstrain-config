@@ -3,7 +3,7 @@ version: "3"
 services:
   ##PREFIX##-nextstrain:
     container_name: ##PREFIX##-nextstrain
-    image: nextstrain/base 
+    image: nextstrain/base:build-20200330T055804Z 
 #    image: ##PREFIX##-nextstrain 
 #    build:
 #      context: .
@@ -24,7 +24,7 @@ services:
       - LANG=en_US.UTF-8
       - PREFIX=##PREFIX##
       - DOMAIN=##OUTERHOST##
-    command: /bin/bash -c 'view --native --allow-remote-access --port 4000 /studies/auspice/'
+    command: /bin/bash -c 'nextstrain view --native --allow-remote-access --port 4000 /studies/'
 
 networks:
   ##PREFIX##-net:
